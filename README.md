@@ -2,7 +2,7 @@
 
 A modern e-commerce shopping cart application built with HTML, CSS, and JavaScript that provides a seamless online shopping experience.
 
-🔗 Live Demo: 
+🔗 Live Demo: https://online-cart-react-js.vercel.app/
 
 ## ✨ Features
 
