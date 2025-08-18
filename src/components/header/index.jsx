@@ -1,29 +1,42 @@
 import { NavLink } from "react-router-dom";
 
 function Header() {
-  const linkClass =
-    "px-4 py-2 text-sm font-medium hover:bg-gray-200 rounded transition";
+  const baseLinkClasses =
+    "px-4 py-2 text-sm font-medium rounded transition-colors duration-300";
 
   return (
-    <header className="bg-white shadow-md">
+    <header className="bg-gradient-to-r from-indigo-600 to-purple-600 shadow-lg">
       <div className="container mx-auto px-4 flex items-center justify-between h-14">
-        <NavLink to="/" className="text-xl font-bold text-gray-800">
-          🛒 Shopping Cart 
+        <NavLink
+          to="/"
+          className="text-white text-xl font-extrabold tracking-wide"
+        >
+          🛒 Online Cart
         </NavLink>
-        <nav className="flex gap-2">
+
+        <nav className="flex gap-3">
           <NavLink
             to="/"
             end
             className={({ isActive }) =>
-              `${linkClass} ${isActive ? "bg-gray-300" : ""}`
+              `${baseLinkClasses} ${
+                isActive
+                  ? "bg-white text-indigo-700 shadow-md"
+                  : "text-white hover:bg-white hover:text-indigo-700"
+              }`
             }
           >
             Home
           </NavLink>
+
           <NavLink
             to="/cart"
             className={({ isActive }) =>
-              `${linkClass} ${isActive ? "bg-gray-300" : ""}`
+              `${baseLinkClasses} ${
+                isActive
+                  ? "bg-white text-indigo-700 shadow-md"
+                  : "text-white hover:bg-white hover:text-indigo-700"
+              }`
             }
           >
             Cart

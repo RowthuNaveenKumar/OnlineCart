@@ -7,45 +7,49 @@ const ProductTile = ({ singleProductTile }) => {
   const { handleAddtoCart, cartItems } = useContext(ShoppingCartContext);
 
   const handleSubmit = (id) => {
-    console.log(id);
     navigate(`/product-details/${id}`);
   };
 
+  const isInCart = cartItems.findIndex((item) => item?.id === singleProductTile?.id) > -1;
+
   return (
-    <div className="relative group border border-cyan-700 p-6 cursor-pointer">
-      <div className="overflow-hidden aspect-w-1 aspect-h-2">
+    <div className="relative group border border-gray-200 rounded-2xl p-5 bg-white shadow-lg hover:shadow-xl transition-shadow cursor-pointer">
+      <div className="overflow-hidden aspect-w-1 aspect-h-2 rounded-lg">
         <img
           src={singleProductTile.thumbnail}
           alt={singleProductTile.title}
-          className="object-cover w-full h-full transition-all duration-300 group-hover:scale-125"
+          className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105 rounded-lg"
+          onClick={() => handleSubmit(singleProductTile.id)}
         />
       </div>
-      <div className="flex items-start justify-between mt-4 space-x-4">
-        <div className="font-bold text-gray-900 sm:text-sm text-xs md:text-base">
-          <p className="w-[100px] overflow-hidden text-ellipsis whitespace-nowrap">
-            {singleProductTile?.title}
-          </p>
-        </div>
-        <div className="text-right">
-          <p className="text-xs font-bold text-gray-900 sm:text-sm sm:text-[14px]">
-            ${singleProductTile?.price}
-          </p>
-        </div>
+      <div className="flex items-center justify-between mt-4 space-x-4">
+        <p className="font-semibold text-gray-900 truncate max-w-[100px] text-sm md:text-base">
+          {singleProductTile?.title}
+        </p>
+        <p className="text-indigo-600 font-bold text-base">${singleProductTile?.price}</p>
       </div>
+
       <button
         onClick={() => handleSubmit(singleProductTile.id)}
-        className="cursor-pointer px-5 mt-5 w-full py-2 rounded-none bg-black text-white font-bold text-lg"
+        className="mt-4 w-full rounded-lg px-4 py-2 font-semibold text-white 
+          bg-gradient-to-r from-indigo-600 to-purple-700 
+          hover:from-indigo-700 hover:to-purple-800 
+          shadow-md hover:shadow-lg 
+          transition duration-300 transform hover:scale-105"
       >
         View Details
       </button>
+
       <button
-        disabled={
-          cartItems.findIndex((item) => item?.id === singleProductTile?.id) > -1
-        }
+        disabled={isInCart}
         onClick={() => handleAddtoCart(singleProductTile)}
-        className="disabled:opacity-65 cursor-pointer px-5 mt-5 w-full py-2 rounded-none bg-black text-white font-bold text-lg"
+        className={`mt-2 w-full rounded-lg px-4 py-2 font-semibold text-white transition duration-300 transform ${
+          isInCart
+            ? "bg-gray-300 text-gray-600 cursor-not-allowed shadow-none"
+            : "bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 shadow-md hover:shadow-lg hover:scale-105"
+        }`}
       >
-        Add to cart
+        {isInCart ? "Added" : "Add to Cart"}
       </button>
     </div>
   );

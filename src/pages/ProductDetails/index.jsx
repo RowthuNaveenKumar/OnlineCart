@@ -27,41 +27,62 @@ const ProductDetailsPage = () => {
     fetchSingleProductDetails();
   }, [id]);
 
-  if (loading) return <h1>Product details loading , Please wait!</h1>;
+  if (loading)
+    return (
+      <h1 className="text-center text-lg font-semibold text-indigo-600">
+        Product details loading, please wait...
+      </h1>
+    );
 
   return (
-    <div>
+    <div className="bg-gradient-to-b from-gray-50 to-white min-h-screen py-10">
       <div className="p-6 lg:max-w-7xl max-w-4xl mx-auto">
-        <div className="grid items-center grid-cols-1 lg:grid-cols-5 gap-15 shadow-sm p-6">
+        <div className="grid items-center grid-cols-1 lg:grid-cols-5 gap-10 bg-white shadow-xl rounded-2xl p-6">
+          {/* Product Image */}
           <div className="lg:col-span-3 w-full lg:sticky top-0 text-center">
-            <div className="px-4 py-10 rounded-3xl shadow-lg relative">
+            <div className="px-4 py-10 rounded-3xl bg-gray-100 shadow-md">
               <img
-                className="w-4/5 rounded object-cover"
+                className="w-4/5 rounded-lg object-cover transition-transform duration-300 hover:scale-105"
                 src={productDetails?.thumbnail}
                 alt={productDetails?.title}
               />
             </div>
-            <div className="mt-6 flex flex-wrap justify-center">
+            <div className="mt-6 flex flex-wrap justify-center gap-3">
               {productDetails?.images?.length
                 ? productDetails?.images.map((imageItem) => (
-                    <div className="rounded-xl p-4 shadow-md" key={imageItem}>
+                    <div
+                      className="rounded-xl p-2 bg-white border border-gray-200 shadow-sm hover:shadow-md transition duration-200"
+                      key={imageItem}
+                    >
                       <img
                         src={imageItem}
-                        className="w-24 cursor-pointer"
-                        alt="product secondary image"
+                        className="w-20 h-20 object-cover rounded cursor-pointer hover:scale-105 transition duration-300"
+                        alt="product secondary"
                       />
                     </div>
                   ))
                 : null}
             </div>
           </div>
+
+          {/* Product Info */}
           <div className="lg:col-span-2">
-            <h2 className="text-2xl font-extrabold text-[#333333]">
+            <h2 className="text-3xl font-extrabold text-gray-800">
               {productDetails?.title}
             </h2>
-            <div className="flex flex-wrap gap-4 mt-4">
-              <p className="text-xl font-bold">${productDetails?.price}</p>
+            <p className="text-gray-500 mt-2 text-sm">
+              {productDetails?.description}
+            </p>
+
+            <div className="flex flex-wrap gap-4 mt-6 items-center">
+              <p className="text-2xl font-bold text-indigo-600">
+                ${productDetails?.price}
+              </p>
+              <span className="px-3 py-1 text-sm rounded-full bg-green-100 text-green-700 font-medium">
+                {productDetails?.brand}
+              </span>
             </div>
+
             <div>
               <button
                 disabled={
@@ -72,7 +93,7 @@ const ProductDetailsPage = () => {
                     : false
                 }
                 onClick={() => handleAddtoCart(productDetails)}
-                className="disabled:opacity-65 cursor-pointer mt-5 min-w-[200px] px-4 py-3 border border-[#333] bg-transparent text-sm font-semibold rounded"
+                className="disabled:opacity-65 mt-8 min-w-[200px] px-5 py-3 rounded-lg text-white font-semibold shadow-md transition duration-300 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 disabled:bg-gray-400 disabled:cursor-not-allowed"
               >
                 Add to Cart
               </button>
